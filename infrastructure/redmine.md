@@ -24,42 +24,42 @@ Redmineで使用するデータベースとしてHeroku Postgresを使用して�
 
 ### データベースのエクスポート手順
 1. データベースのキャプチャー 
-下記のコマンドを実行します。
+    下記のコマンドを実行します。
 
-```bash
-$ heroku pgbackups:capture --app=HEROKU_APP_NAME
-$ heroku pgbackups --app=HEROKU_APP_NAME
-```
+    ```bash
+    $ heroku pgbackups:capture --app=HEROKU_APP_NAME
+    $ heroku pgbackups --app=HEROKU_APP_NAME
+    ```
 
-`HEROKU_APP_NAME`には、プロダクション環境かステージング環境のアプリ名を指定します。
+    `HEROKU_APP_NAME`には、プロダクション環境かステージング環境のアプリ名を指定します。
 
-上記の結果でバックアップされたIDをメモします。
+    上記の結果でバックアップされたIDをメモします。
 
 1. ダンプファイルのダウンロード
-下記のコマンドを実行します。
+    下記のコマンドを実行します。
 
-```bash
-$ heroku pgbackups:url BACKUP_ID --app=HEROKU_APP_NAME
-```
+    ```bash
+    $ heroku pgbackups:url BACKUP_ID --app=HEROKU_APP_NAME
+    ```
 
-上記の結果のURLを任意の方法でローカルにダウンロードします。
+    上記の結果のURLを任意の方法でローカルにダウンロードします。
 
 ### データベースのインポート手順
 1. ダンプファイルのアップロード
-Dropboxにダンプファイルを配置して、リンクを共有します。
-そのリンクに対して下記のように変換してメモします。
+    Dropboxにダンプファイルを配置して、リンクを共有します。
+    そのリンクに対して下記のように変換してメモします。
 
-```text
-https://www.dropbox.com/s/XXXXXXXXXXXXX/Staging_20141123.dump?dl=0
-↓
-https://dl.dropboxusercontent.com/s/XXXXXXXXXXXXX/Staging_20141123.dump
-```
+    ```text
+    https://www.dropbox.com/s/XXXXXXXXXXXXX/Staging_20141123.dump?dl=0
+    ↓
+    https://dl.dropboxusercontent.com/s/XXXXXXXXXXXXX/Staging_20141123.dump
+    ```
 
 1. データベースのリストア
-下記のコマンドを実行します。
+    下記のコマンドを実行します。
 
-```bash
-$ heroku pgbackups:restore DATABASE_URL 'DROPBOX_URL' --app=HEROKU_APP_NAME
-```
+    ```bash
+    $ heroku pgbackups:restore DATABASE_URL 'DROPBOX_URL' --app=HEROKU_APP_NAME
+    ```
 
-`DROPBOX_URL`には、前回の手順でメモしたDropboxのリンクを指定します。
+    `DROPBOX_URL`には、前回の手順でメモしたDropboxのリンクを指定します。
