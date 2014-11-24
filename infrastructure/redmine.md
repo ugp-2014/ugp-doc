@@ -11,6 +11,9 @@ Redmineを運用するためには、最低限下記の環境が必要になり�
 * heroku-toolbelt
 * Dropbox
 
+ログインに必要なユーザ名やパスワードなどは、このドキュメントには記載しません。
+それらの情報は、運用担当者から直接聞いてください。
+
 ## ホスティング環境
 heroku上のアプリとしてプロダクション環境とステージング環境を用意しています。
 
@@ -18,6 +21,35 @@ heroku上のアプリとしてプロダクション環境とステージング�
 |----------------------|-------------------|-------------------------------------------------------------------|
 | プロダクション環境   | ugp-rdm           | 本運用として使用されるアプリです。                                |
 | ステージング環境     | ugp-rdm-staging   | プロダクション環境に配信する前に、この環境で動作確認を行います。  |
+
+### 配信手順
+1. ソースコードのクローン
+
+    下記のコマンドを実行します。
+
+    ```bash
+    $ git clone https://github.com/ugp-2014/redmine
+    $ cd redmine
+    ```
+
+1. herokuのリモートリポジトリの設定
+
+    下記のコマンドを実行します。
+
+    ```bash
+    $ git remote add staging git@heroku.com:ugp-rdm.git
+    $ git remote add production git@heroku.com:ugp-rdm-staging.git
+    ```
+
+1. herokuへのプッシュ
+
+    下記のコマンドを実行します。
+
+    ```bash
+    $ git push HEROKU_REMOTE_REPOSITORY master
+    ```
+
+    `HEROKU_REMOTE_REPOSITORY`には、プロダクション環境(production)かステージング環境(staging)のリモートリポジトリ名を指定します。
 
 ## データベース環境
 Redmineで使用するデータベースとしてHeroku Postgresを使用しています。
